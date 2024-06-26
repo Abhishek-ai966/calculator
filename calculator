@@ -2,6 +2,7 @@
 >>> from tkinter import ttk
 >>> import math
 >>>
+>>> # Function to handle button clicks
 >>> def on_button_click(button_text):
 ...     if button_text == "=":
 ...         try:
@@ -33,6 +34,23 @@
 ...         else:
 ...             display.insert(tk.END, button_text)
 ...
+>>> # Function to save the current calculation
+>>> saved_calculations = []
+>>>
+>>> def save_calculation():
+...     current_calculation = display.get()
+...     if current_calculation:
+...         saved_calculations.append(current_calculation)
+...         print(f"Saved: {current_calculation}")
+...
+>>> # Function to delete the last saved calculation
+>>> def delete_calculation():
+...     if saved_calculations:
+...         deleted_calculation = saved_calculations.pop()
+...         print(f"Deleted: {deleted_calculation}")
+...     else:
+...         print("No saved calculations to delete")
+...
 >>> # Create the main application window
 >>> root = tk.Tk()
 >>> root.title("Scientific Calculator")
@@ -62,5 +80,9 @@
 ...     tk.Button(root, text=text, font=("Arial", 18), command=lambda t=text: on_button_click(t)).grid(row=row_val, column=col_val)
 ...     col_val += 1
 ...
+>>> # Adding Save and Delete buttons
+>>> tk.Button(root, text="Save", font=("Arial", 18), command=save_calculation).grid(row=row_val + 1, column=0, columnspan=3)
+>>> tk.Button(root, text="Delete", font=("Arial", 18), command=delete_calculation).grid(row=row_val + 1, column=3, columnspan=3)
+>>>
 >>> # Start the main loop
 >>> root.mainloop()
